@@ -183,6 +183,8 @@ class Client(object):
             if not port:
                 raise ValueError("Port not found")
         else:
+            if not service.ports:
+                raise ValueError("No ports available in service")
             port = list(service.ports.values())[0]
         return port
 

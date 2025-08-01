@@ -59,12 +59,14 @@ def create_xml_soap_map(values):
 
 def guess_xsd_type(obj):
     """Return the XSD Type for the given object"""
+    # Check bool before int since bool is a subclass of int in Python
     if isinstance(obj, bool):
         return xsd.Boolean()
     if isinstance(obj, int):
         return xsd.Integer()
     if isinstance(obj, float):
         return xsd.Float()
+    # Check datetime before date since datetime is a subclass of date
     if isinstance(obj, datetime.datetime):
         return xsd.DateTime()
     if isinstance(obj, datetime.date):
