@@ -24,10 +24,10 @@ logger = logging.getLogger(__name__)
 class Base(object):
 
     def add(self, url, content):
-        raise NotImplemented()
+        raise NotImplementedError()
 
     def get(self, url):
-        raise NotImplemented()
+        raise NotImplementedError()
 
 
 class InMemoryCache(Base):
@@ -131,6 +131,8 @@ class SqliteCache(Base):
             data = str(data)
         if data.startswith(self._version_string):
             return base64.b64decode(data[len(self._version_string):])
+        # Return None for invalid/incompatible cache data
+        return None
 
     @property
     def _version_string(self):
